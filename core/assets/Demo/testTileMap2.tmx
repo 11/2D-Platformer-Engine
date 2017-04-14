@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="80" height="15" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="tileSet" tilewidth="32" tileheight="32">
+  <image source="tileSet.png" width="96" height="32"/>
+ </tileset>
+ <layer name="Front" width="80" height="15">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T20ND6AAAAAA4NcAEsAAAQ==
+  </data>
+ </layer>
+ <layer name="Back" width="80" height="15">
+  <data encoding="base64" compression="zlib">
+   eJztw7ENAAAMAiD9/2mPaLpBQgIAAADAp3o6RWAAUQ==
+  </data>
+ </layer>
+ <objectgroup name="Lights">
+  <object x="354" y="64" width="92" height="97"/>
+  <object x="1057" y="66" width="96" height="95"/>
+  <object x="1697" y="66" width="94" height="93"/>
+ </objectgroup>
+</map>
