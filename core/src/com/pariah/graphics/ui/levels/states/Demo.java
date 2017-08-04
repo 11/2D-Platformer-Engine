@@ -11,56 +11,57 @@ import com.pariah.runner.Constants;
 /**
  * Demo.java
  * 
- * Used Strictly for testing new ideas for the game and adding
- * mechanics.
+ * Used Strictly for testing new ideas for the game and adding mechanics.
  * 
  * @author Douglas Rudolph
  */
-public class Demo extends GameState
-{
+public class Demo extends GameState {
 	/**
 	 * Loads: camera, Box2dDebugRenderer, the physics world, lights, player. and
 	 * assets for the level
 	 */
 	@Override
-	public void show()
-	{
+	public void show() {
 		super.show();
-		levelManager.loadLevel("Demo/testTileMap.tmx", box2DWorld,levelCamera);
+
+		// load level assets
+		levelManager.loadLevel("Demo/testTileMap.tmx", box2DWorld, levelCamera);
 		
+		//load lighting
+		lightManager.loadLevel("Demo/testTileMap.tmx");
+
+		// load music
 		audioManager.loadSong("Demo/2_silver_moons.mp3", "BackgroundSong");
-		Music backgroundSong=audioManager.getSong("BackgroundSong");
+		Music backgroundSong = audioManager.getSong("BackgroundSong");
 		backgroundSong.play();
 
-		// Stage loading		
+		// Stage loading
 		assetManager.loadAsset("Demo/Background.png", "Background");
 		Image background = new Image(assetManager.getAsset("Background"));
-		background.setSize(Gdx.graphics.getWidth() * 1.5f,
-				Gdx.graphics.getHeight());
-		background.addAction(Actions.sequence(Actions.alpha(0),
-				Actions.fadeIn(2.0f)));
+		background.setSize(Gdx.graphics.getWidth() * 1.5f, Gdx.graphics.getHeight());
+		background.addAction(Actions.sequence(Actions.alpha(0), Actions.fadeIn(2.0f)));
+		
 		stage.addActor(background);
 	}
 
 	/**
-	 * updates the physics world, renders the world after an update clears the
+	 * Updates the physics world, renders the world after an update clears the
 	 * buffer scrolls the tile sheet left and right
 	 */
 	@Override
-	public void render(float delta)
-	{
-		// update camera, stage
+	public void render(float delta) {
+		// update stage camera
 		box2DWorld.step(1 / 60f, 6, 2);
 
-		box2DCamera.position.set(player.getBody().getPosition().x, player
-				.getBody().getPosition().y, 0);
+		//camera
+		box2DCamera.position.set(player.getBody().getPosition().x, player.getBody().getPosition().y, 0);
 		box2DCamera.update();
 
-		levelCamera.position.set(player.getBody().getPosition().x
-				* Constants.BOX_SCALE, player.getBody().getPosition().y
-				* Constants.BOX_SCALE, 0);
-		levelCamera.update();
+		//follow the player
+		levelCamera.position.set(player.getBody().getPosition().x * Constants.BOX_SCALE,player.getBody().getPosition().y * Constants.BOX_SCALE, 0);
+		levelCamera.update(); //Demo: 1.)
 
+		//update the stage
 		stage.act(delta);
 
 		// clearing buffer
@@ -69,42 +70,36 @@ public class Demo extends GameState
 
 		// render stage
 		stage.draw();
-		debugRenderer.render(box2DWorld, box2DCamera.combined);
 		levelManager.render(layerTracker);
+		//lightManager.renderLights(); // Demo 3.)
 		debugRenderer.render(box2DWorld, box2DCamera.combined);
-
-
+		
 		// grab input
 		player.updateMotion();
 	}
 
 	@Override
-	public void dispose()
-	{
+	public void dispose() {
 		super.dispose();
 	}
 
 	@Override
-	public void resize(int width, int height)
-	{
+	public void resize(int width, int height) {
 
 	}
 
 	@Override
-	public void hide()
-	{
+	public void hide() {
 
 	}
 
 	@Override
-	public void pause()
-	{
+	public void pause() {
 
 	}
 
 	@Override
-	public void resume()
-	{
+	public void resume() {
 
 	}
 

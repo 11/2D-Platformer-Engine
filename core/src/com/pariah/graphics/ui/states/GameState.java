@@ -26,6 +26,7 @@ import box2dLight.RayHandler;
 public abstract class GameState extends State
 {
 
+	//load managers
 	protected GamePlayInputManager	inputManager;
 	protected AssetManager			assetManager;
 	protected AudioManager			audioManager;
@@ -78,13 +79,10 @@ public abstract class GameState extends State
 	public void show()
 	{
 		box2DCamera = new OrthographicCamera();
-		box2DCamera.setToOrtho(false, 
-									Gdx.graphics.getWidth()/ Constants.BOX_SCALE, 
-									Gdx.graphics.getHeight()/ Constants.BOX_SCALE);
+		box2DCamera.setToOrtho(false, Gdx.graphics.getWidth()/Constants.BOX_SCALE, Gdx.graphics.getHeight()/Constants.BOX_SCALE);
+		// Demo 2.) box2DCamera.setToOrtho(false, Gdx.graphics.getWidth()/*/ Constants.BOX_SCALE*/, Gdx.graphics.getHeight()/*/ Constants.BOX_SCALE*/);
 		levelCamera = new OrthographicCamera();
-		levelCamera.setToOrtho(false,
-									Gdx.graphics.getWidth(),
-									Gdx.graphics.getHeight());
+		levelCamera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
 		box2DWorld = Box2DFactory.createWorld();
 		lightWorld = Box2DFactory.createWorld();
@@ -95,7 +93,9 @@ public abstract class GameState extends State
 		batch         = new SpriteBatch();
 		batch.setProjectionMatrix(box2DCamera.combined);
 		
-		handler       = new RayHandler(lightWorld);
+		//TODO: Test adding lights to the level using the box2DWorld
+		//handler       = new RayHandler(lightWorld);
+		handler       = new RayHandler(box2DWorld);
 		handler.setCombinedMatrix(box2DCamera.combined);
 		
 		stage = new Stage();
